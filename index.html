@@ -3,182 +3,133 @@ html
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <style>
-        body { 
-            background: rgba(0, 0, 0, 0.8); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0; 
-            font-family: sans-serif;
+        body { margin: 0; padding: 0; font-family: sans-serif; background: transparent; overflow: hidden; }
+
+        /* ÍCONE FLUTUANTE (BOTÃO REDONDO) */
+        #floating-icon {
+            width: 55px; height: 55px;
+            background: #ff0000;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            position: fixed;
+            top: 20%; left: 10px;
+            z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 0 15px rgba(255,0,0,0.7);
+            cursor: move;
+            font-weight: bold; font-size: 24px; color: white;
+            text-shadow: 1px 1px 2px black;
         }
-        
+
+        /* JANELA DO MOD MENU */
         #mod-menu { 
-            width: 240px; 
-            background: #111; 
+            width: 220px; 
+            background: rgba(10, 10, 10, 0.95); 
             border: 2px solid #ff0000; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            box-shadow: 0 0 15px #ff0000;
+            border-radius: 10px; 
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
+            display: none;
+            box-shadow: 0 0 25px black;
         }
 
         .header { 
-            background: #ff0000; 
-            color: #000; 
-            padding: 8px; 
-            text-align: center; 
-            font-weight: bold; 
-            font-size: 14px;
-            text-transform: uppercase;
+            background: #ff0000; color: white; 
+            padding: 8px; text-align: center; 
+            font-weight: bold; font-size: 14px;
+            border-radius: 8px 8px 0 0;
+            display: flex; justify-content: space-between; align-items: center;
         }
+
+        .close-btn { cursor: pointer; font-size: 18px; padding: 0 5px; }
 
         .content { padding: 12px; }
 
         .option { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            color: #fff; 
-            margin-bottom: 12px;
-            font-size: 12px;
-            font-weight: bold;
+            display: flex; justify-content: space-between; 
+            align-items: center; color: #fff; margin-bottom: 12px; font-size: 11px;
+            font-weight: bold; text-transform: uppercase;
         }
 
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 34px;
-            height: 18px;
-        }
-
+        /* ESTILO DOS SWITCHES (LIGAR/DESLIGAR) */
+        .switch { position: relative; display: inline-block; width: 34px; height: 18px; }
         .switch input { opacity: 0; width: 0; height: 0; }
-
         .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #333;
-            transition: .3s;
-            border-radius: 20px;
-            border: 1px solid #444;
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #333; transition: .3s; border-radius: 20px;
         }
-
         .slider:before {
-            position: absolute;
-            content: "";
-            height: 12px; width: 12px;
-            left: 2px; bottom: 2px;
-            background-color: #fff;
-            transition: .3s;
-            border-radius: 50%;
+            position: absolute; content: ""; height: 12px; width: 12px;
+            left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%;
         }
-
         input:checked + .slider { background-color: #ff0000; }
         input:checked + .slider:before { transform: translateX(16px); }
 
         .btn-inject {
-            width: 100%;
-            background: #ff0000;
-            color: #000;
-            border: none;
-            padding: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 5px;
-            font-size: 11px;
-        }
-
-        #loading-bar {
-            width: 100%;
-            background: #222;
-            height: 8px;
-            margin-top: 10px;
-            display: none;
-            border-radius: 4px;
-            border: 1px solid #444;
-        }
-
-        #progress {
-            width: 0%;
-            height: 100%;
-            background: #00ff00;
-            border-radius: 4px;
+            width: 100%; background: #ff0000; color: white; border: none;
+            padding: 8px; font-weight: bold; border-radius: 5px; cursor: pointer;
+            font-size: 11px; text-transform: uppercase; margin-top: 5px;
         }
     </style>
 </head>
 <body>
 
+<div id="floating-icon">P</div>
+
 <div id="mod-menu">
-    <div class="header">PEDRO MOD MENU</div>
+    <div class="header">
+        <span>PEDRO MENU V1</span>
+        <div class="close-btn" onclick="toggleMenu()">×</div>
+    </div>
     <div class="content">
-        
         <div class="option">
             <span>AIMBOT FULL</span>
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider"></span>
-            </label>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
         </div>
-
         <div class="option">
             <span>HS 100% REGEDIT</span>
-            <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider"></span>
-            </label>
+            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
         </div>
-
         <div class="option">
-            <span>ANTENNA HEAD</span>
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider"></span>
-            </label>
+            <span>ANTENA HEAD</span>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
         </div>
-
         <div class="option">
-            <span>BYPASS ANTI-BAN</span>
-            <label class="switch">
-                <input type="checkbox" checked>
-                <span class="slider"></span>
-            </label>
+            <span>ANTIBAN BYPASS</span>
+            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
         </div>
-
-        <div id="loading-bar"><div id="progress"></div></div>
-        <button class="btn-inject" onclick="ativarMod()">ATIVAR NO JOGO</button>
+        <button class="btn-inject" onclick="alert('ATIVADO!')">INJETAR MODS</button>
     </div>
 </div>
 
 <script>
-    function ativarMod() {
-        const bar = document.getElementById('loading-bar');
-        const progress = document.getElementById('progress');
-        const btn = document.querySelector('.btn-inject');
-        
-        btn.disabled = true;
-        btn.innerHTML = "INJETANDO...";
-        bar.style.display = 'block';
-        
-        let width = 0;
-        let interval = setInterval(() => {
-            if (width >= 100) {
-                clearInterval(interval);
-                btn.innerHTML = "SUCESSO!";
-                btn.style.background = "#00ff00";
-                setTimeout(() => {
-                    window.location.href = "https://play.google.com/store/apps/details?id=com.dts.freefireth";
-                }, 800);
-            } else {
-                width++;
-                progress.style.width = width + '%';
-            }
-        }, 30);
+    const icon = document.getElementById("floating-icon");
+    const menu = document.getElementById("mod-menu");
+
+    // ABRE E FECHA O MENU AO CLICAR
+    function toggleMenu() {
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
     }
+
+    icon.onclick = toggleMenu;
+
+    // SISTEMA PARA ARRASTAR O ÍCONE NA TELA
+    let isDragging = false;
+    icon.addEventListener('touchstart', () => { isDragging = true; });
+    icon.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            let touch = e.targetTouches[0];
+            icon.style.left = (touch.pageX - 27) + 'px';
+            icon.style.top = (touch.pageY - 27) + 'px';
+        }
+    });
+    icon.addEventListener('touchend', () => { isDragging = false; });
 </script>
 
 </body>
 </html>
+
